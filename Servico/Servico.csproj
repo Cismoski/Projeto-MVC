@@ -43,9 +43,12 @@
     <Compile Include="Cadastros\ClienteServico.cs" />
     <Compile Include="Cadastros\FabricanteServico.cs" />
     <Compile Include="Cadastros\ProdutoServico.cs" />
+    <Compile Include="Cadastros\PromocaoServico.cs" />
     <Compile Include="Cadastros\VendedorServico.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tabelas\CategoriaServico.cs" />
+    <Compile Include="Tabelas\CidadeServico.cs" />
+    <Compile Include="Tabelas\EstadoServico.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Modelo\Modelo.csproj">

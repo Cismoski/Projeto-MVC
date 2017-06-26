@@ -41,12 +41,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cadastros\ProdutoPromocao.cs" />
+    <Compile Include="Cadastros\Promocao.cs" />
+    <Compile Include="Carrinho\Carrinho.cs" />
     <Compile Include="Cadastros\Cliente.cs" />
     <Compile Include="Cadastros\Fabricante.cs" />
     <Compile Include="Cadastros\Produto.cs" />
     <Compile Include="Cadastros\Vendedor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tabelas\Categoria.cs" />
+    <Compile Include="Tabelas\Cidade.cs" />
+    <Compile Include="Tabelas\Estado.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

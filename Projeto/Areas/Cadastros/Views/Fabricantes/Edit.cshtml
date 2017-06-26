@@ -1,0 +1,102 @@
+﻿@model Modelo.Cadastros.Fabricante
+
+@{
+    Layout = "~/Areas/Cadastros/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Alterar FABRICANTE";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            Alteração dos dados de um FABRICANTE
+        </div>
+        <div class="panel-body">
+            <div class="form-horizontal">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.FabricanteId)
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Nome, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Estado, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(model => model.EstadoID, ViewBag.EstadoID as IEnumerable<SelectListItem>, "Selecione um estado", new { @class = "form-control input-sm" })
+                        @Html.ValidationMessageFor(model => model.EstadoID, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Cidade, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(model => model.CidadeID, null, "Selecione uma cidade", new { @class = "form-control input-sm", data_url = @Url.Action("GetCidadesDoEstado", "Cidades", new { area = "Tabelas" }) })
+                        @Html.ValidationMessageFor(model => model.CidadeID, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.TipoPessoa, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="btn-group col-md-10">
+                        @Html.RadioButtonFor(model => model.TipoPessoa, "Física")Física<br />
+                        @Html.RadioButtonFor(model => model.TipoPessoa, "Jurídica")Jurídica<br />
+                        @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.EstaAtivo, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="btn-group col-md-10">
+                        @Html.CheckBoxFor(model => model.EstaAtivo, "EstaAtivo")Está Ativo<br />
+                    </div>
+                </div>
+            </div>
+            <div class="panel-footer panel-info">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Salvar alterações" class="btn btn-info" />
+                    @Html.ActionLink("Retornar para a listagem de FABRICANTES", "Index", null, new { @class = "btn btn-warning" })
+                </div>
+                <br />
+                <br />
+            </div>
+        </div>
+    </div>
+}
+@section ScriptPage{
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('li').removeClass("active");
+            $('#liFabricantes').addClass("active");
+        });
+
+        function GetCidades(estado, campoCidade) {
+            var optionCampoCidade = campoCidade + ' option';
+            if (estado.length > 0) {
+                var url = $(campoCidade).data('url');
+                $.getJSON(url, { estadoID: estado }, function (cidade) {
+                    $(optionCampoCidade).remove();
+                    $(campoCidade).append('<option value="">Selecione uma cidade</option');
+                    for (i = 0; i < cidade.length; i++) {
+                        $(campoCidade).append('<option value="' + cidade[i].CidadeID + '">' + cidade[i].Nome + '</option');
+                    }
+                }).fail(function (jqXHR, textStatus, errorThrown) {
+                    debugger;
+                    alert('Erro de conexão', 'Erro obtendo cidades');
+                });
+            } else {
+                $(optionCampoCidade).remove();
+                $(campoCidade).append('<option value=""></option');
+            }
+        }
+
+        $(document).on("change", "#EstadoID", function (e) {
+            var estadoID = $(this).find(":selected").val();
+            GetCidades(estadoID, "#CidadeID");
+        });
+    </script>
+}

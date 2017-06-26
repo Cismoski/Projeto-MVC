@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using Projeto.Infraestrutura
+<!DOCTYPE html>
 
 <html>
 <head>
@@ -10,31 +11,50 @@
 <body>
     <div class="container">
         <div class="row">
-            <div class="page-header bg-danger">
+            <div class="page-header">
                 <h1>Desenvolvimento em ASP.NET MVC</h1>
                 <smal class="text-danger">Utilizando o Bootstrap</smal>
+            </div>
+            <div style="text-align:right;">
+                @{ 
+                    if(Html.GetAuthenticatedUser().ToString() != "")
+                    {
+                        @Html.GetAuthenticatedUser();
+                        @Html.ActionLink(" - Sair", "Logout", "Account");
+                    }
+                    else
+                    {
+                        @Html.ActionLink(" Acessar", "Login", "Account", new { area = "Seguranca" }, null);
+                    }
+                }
             </div>
         </div>
         <div class="row">
             <div class="col-xs-3 col-md-3 bg-success">
                 <ul class="nav nav-pills nav-stacked">
                     <li id="liHome" role="presentation">
-                        <a href="#">Home</a>
+                        @Html.ActionLink("Home", "Index", "Home", null, null)
                     </li>
                     <li id="liCategorias" role="presentation">
-                        @Html.ActionLink("Categorias","Index","Categorias")
+                        @Html.ActionLink("Categorias","Index","Categorias", new { area = "Tabelas" }, null)
                     </li>
                     <li id="liFabricantes" role="presentation">
-                        @Html.ActionLink("Fabricantes", "Index", "Fabricantes")
+                        @Html.ActionLink("Fabricantes", "Index", "Fabricantes", new { area = "Cadastros" }, null)
                     </li>
                     <li id="liClientes" role="presentation">
-                        @Html.ActionLink("Clientes", "Index", "Clientes")
+                        @Html.ActionLink("Clientes", "Index", "Clientes", new { area = "Cadastros" }, null)
                     </li>
                     <li id="liVendedores" role="presentation">
-                        @Html.ActionLink("Vendedores", "Index", "Vendedores")
+                        @Html.ActionLink("Vendedores", "Index", "Vendedores", new { area = "Cadastros" }, null)
                     </li>
                     <li id="liProdutos" role="presentation">
-                        @Html.ActionLink("Produtos", "Index", "Produtos")
+                        @Html.ActionLink("Produtos", "Index", "Produtos", new { area = "Cadastros" }, null)
+                    </li>
+                    <li id="liUsuarios" role="presentation">
+                        @Html.ActionLink("Usuários", "Index","Admin",new { area = "Seguranca"},null)
+                    </li>
+                    <li id="liRoles" role="presentation">
+                        @Html.ActionLink("Papeis", "Index", "PapelAdmin", new { area = "Seguranca" }, null)
                     </li>
                 </ul>
             </div>
@@ -46,7 +66,7 @@
         <br/>
 
         <div class="row">
-            <div class="col-xs-12 col-md-12 bg-danger">
+            <div class="col-xs-12 col-md-12">
                 <small>Layout com Bootstrap</small>
             </div>
         </div>

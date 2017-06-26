@@ -51,8 +51,11 @@
     <Compile Include="DAL\Cadastros\ClienteDAL.cs" />
     <Compile Include="DAL\Cadastros\FabricanteDAL.cs" />
     <Compile Include="DAL\Cadastros\ProdutoDAL.cs" />
+    <Compile Include="DAL\Cadastros\PromocaoDAL.cs" />
     <Compile Include="DAL\Cadastros\VendedorDAL.cs" />
     <Compile Include="DAL\Tabelas\CategoriaDAL.cs" />
+    <Compile Include="DAL\Tabelas\CidadeDAL.cs" />
+    <Compile Include="DAL\Tabelas\EstadoDAL.cs" />
     <Compile Include="Migrations\201705140532376_InitialCreate.cs" />
     <Compile Include="Migrations\201705140532376_InitialCreate.Designer.cs">
       <DependentUpon>201705140532376_InitialCreate.cs</DependentUpon>

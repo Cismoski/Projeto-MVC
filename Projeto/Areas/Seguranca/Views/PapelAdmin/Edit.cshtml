@@ -1,0 +1,77 @@
+﻿@using Projeto.Areas.Seguranca.Models
+@model PapelEditModel
+
+
+@{
+    Layout = "~/Areas/Seguranca/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Alteração de um PAPEL";
+}
+
+@Html.ValidationSummary()
+@using (Html.BeginForm())
+{
+    <input type="hidden" name="nomePapel" value="@Model.Role.Name" />
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            Adicionar para @Model.Role.Name
+        </div>
+        <table class="table table-striped">
+            @if (Model.NaoMembros.Count() == 0)
+                {
+                <tr><td colspan="2" class="text-center">Todos os usuários são membros</td></tr>
+            }
+            else
+            {
+                <tr>
+                    <th>Usuários</th>
+                    <th>Adicionar ao Papel</th>
+                </tr>
+                foreach (Usuario usuario in Model.NaoMembros)
+                {
+                    <tr>
+                        <td>@usuario.UserName</td>
+                        <td><input type="checkbox" name="IdsParaAdicionar" value="@usuario.Id" /></td>
+                    </tr>
+                }
+            }
+        </table>
+    </div>
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            Remover de @Model.Role.Name
+        </div>
+        <table class="table table-striped">
+            @if (Model.Membros.Count() == 0)
+                {
+                <tr><td colspan="2" class="text-center">Sem usuários membros</td></tr>
+            }
+            else
+            {
+                <tr>
+                    <th>Usuários</th>
+                    <th>Remover do Papel</th>
+                </tr>
+                foreach (Usuario usuario in Model.Membros)
+                {
+                    <tr>
+                        <td>@usuario.UserName</td>
+                        <td><input type="checkbox" name="IdsParaRemover" value="@usuario.Id" /></td>
+                    </tr>
+                }
+            }
+        </table>
+    </div>
+    <button type="submit" class="btn btn-primary">Gravar alterações</button>
+    @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-warning" })
+}
+
+@section ScriptPage{
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")"></script>
+    <script type="text/javascript">
+            $(document).ready(function () {
+                $('li').removeClass("active");
+                $('#liRoles').addClass("active");
+            });
+    </script>
+}
